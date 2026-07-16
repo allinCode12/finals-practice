@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GED0081 Physics 1 Finals Cram Reviewer</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #161f30;
+            --primary: #4f46e5;
+            --primary-hover: #6366f1;
+            --accent: #06b6d4;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --error: #ef4444;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 3rem;
+            background-image: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.1) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: rgba(22, 31, 48, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #a5b4fc, #818cf8, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: var(--primary);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Hero / Setup */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .welcome-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .mode-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mode-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .mode-btn h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .mode-btn p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .module-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+
+        .module-btn:hover {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        /* Quiz Interface */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-meta {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.08);
+        }
+
+        .option-card.selected .option-letter {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Post-Answer states */
+        .option-card.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option-card.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-card.incorrect {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .option-card.incorrect .option-letter {
+            background: var(--error);
+            color: white;
+        }
+
+        .feedback-box {
+            display: none;
+            background: rgba(79, 70, 229, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback-box.correct-fb {
+            border-left-color: var(--success);
+            background: rgba(16, 185, 129, 0.02);
+        }
+
+        .feedback-box.incorrect-fb {
+            border-left-color: var(--error);
+            background: rgba(239, 68, 68, 0.02);
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feedback-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Results Screen */
+        .results-container {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 8px solid var(--border);
+            border-top-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 auto 2rem;
+            color: var(--accent);
+        }
+
+        /* Formulas Sheet */
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .cheat-section {
+            border-left: 3px solid var(--primary);
+            padding-left: 1.5rem;
+        }
+
+        .cheat-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .formula-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .formula-math {
+            font-family: 'Courier New', Courier, monospace;
+            background: #070a13;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 1.1rem;
+            color: #38bdf8;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            border-left: 2px solid var(--accent);
+        }
+
+        .tip-box {
+            background: rgba(245, 158, 11, 0.05);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .tip-box strong {
+            color: #f59e0b;
+        }
+
+        .pill {
+            background: rgba(79, 70, 229, 0.15);
+            color: #a5b4fc;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Back to site */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <a href="index.php" class="back-link">&larr; Back to Student Management</a>
+            <h1>GED0081 College Physics 1</h1>
+            <p>Finals Comprehensive Practice Reviewer</p>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('quiz')">Interactive Quiz</button>
+            <button class="tab-btn" onclick="switchTab('cheat')">Cram Cheat Sheet</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- QUIZ TAB -->
+        <div id="quiz-tab" class="tab-content active">
+            
+            <!-- Setup Section -->
+            <div id="setup-section" class="card welcome-card">
+                <h2>Ace Your Physics 1 Finals</h2>
+                <p>Based <strong>exactly</strong> on the lecture modules (M1-M9). Perfect for cramming. Practice with step-by-step mathematical explanations matching the slides.</p>
+                
+                <div class="mode-selector">
+                    <button class="mode-btn" onclick="startExam('full')">
+                        <h3>Full Comprehensive Exam</h3>
+                        <p>35 questions selected from all modules. Randomized order. The ultimate test of readiness.</p>
+                    </button>
+                    <button class="mode-btn" onclick="startExam('custom')">
+                        <h3>Module-Specific Practice</h3>
+                        <p>Focus on specific areas where you need reinforcement before the exam.</p>
+                    </button>
+                </div>
+
+                <div id="module-selector-box" style="display:none; animation: fadeIn 0.3s ease;">
+                    <h4 style="margin-bottom: 0.75rem; color: var(--accent);">Select a Lecture Module:</h4>
+                    <div class="module-grid">
+                        <button class="module-btn" onclick="startModuleExam(1)">Module 1: Introduction to Vectors</button>
+                        <button class="module-btn" onclick="startModuleExam(2)">Module 2: Operations on Vectors</button>
+                        <button class="module-btn" onclick="startModuleExam(3)">Module 3: Motion in 1D (Kinematics)</button>
+                        <button class="module-btn" onclick="startModuleExam(4)">Module 4: Motion in 2D & Circular Motion</button>
+                        <button class="module-btn" onclick="startModuleExam(5)">Module 5: Newton's Laws of Motion</button>
+                        <button class="module-btn" onclick="startModuleExam(6)">Module 6: Applications of Newton's Laws</button>
+                        <button class="module-btn" onclick="startModuleExam(7)">Modules 7-9: Work, Energy, Momentum & Equilibrium</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-section" class="card" style="display:none;">
+                <div class="quiz-header">
+                    <span id="question-category" class="question-meta">Module 1</span>
+                    <span id="question-counter" class="question-meta" style="color: var(--text-muted)">Question 1 of 10</span>
+                </div>
+                <div class="progress-container">
+                    <div id="quiz-progress" class="progress-bar"></div>
+                </div>
+
+                <div id="question-text" class="question-text">
+                    Question text goes here.
+                </div>
+
+                <div id="options-container" class="options-list">
+                    <!-- Options loaded dynamically -->
+                </div>
+
+                <div id="feedback-container" class="feedback-box">
+                    <div id="feedback-title" class="feedback-title">Correct!</div>
+                    <div id="feedback-text" class="feedback-desc">Explanation text.</div>
+                </div>
+
+                <div class="quiz-actions">
+                    <button id="submit-btn" class="btn" onclick="submitAnswer()">Submit Answer</button>
+                    <button id="next-btn" class="btn" style="display:none;" onclick="nextQuestion()">Next Question &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-section" class="card results-container" style="display:none;">
+                <h2>Assessment Complete!</h2>
+                <p id="result-meta" style="color: var(--text-muted); margin-bottom: 2rem;">Full Comprehensive Exam</p>
+                
+                <div class="score-circle">
+                    <span id="score-text">85%</span>
+                </div>
+
+                <h3 id="score-greeting" style="margin-bottom: 1rem;">Excellent Work!</h3>
+                <p id="score-summary" style="margin-bottom: 2rem; color: var(--text-muted);">You scored 28 out of 35 questions.</p>
+
+                <div class="quiz-actions" style="justify-content: center;">
+                    <button class="btn btn-outline" onclick="resetQuiz()">Back to Menu</button>
+                    <button class="btn" onclick="retryIncorrect()" id="retry-incorrect-btn">Retry Incorrect Answers</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CHEAT SHEET TAB -->
+        <div id="cheat-tab" class="tab-content">
+            <div class="card">
+                <h2 style="margin-bottom: 1.5rem; text-align: center;">GED0081 Ultimate Cram Formula Sheet</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2.5rem; text-align: center;">All formulas, coordinate guides, and slides-specific tricks compiled in one place.</p>
+                
+                <div class="cheat-grid">
+                    
+                    <!-- M1 & M2 Vectors -->
+                    <div class="cheat-section">
+                        <h3>Modules 1 & 2: Vectors & Operations <span class="pill">M1 & M2</span></h3>
+                        
+                        <div class="formula-card">
+                            <strong>Vector Magnitude (2D & 3D)</strong>
+                            <p>To get magnitude, take the square root of the sum of the squares of components.</p>
+                            <div class="formula-math">|A| = &radic;(Ax&sup2; + Ay&sup2; + Az&sup2;)</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Angle of Inclination (2D)</strong>
+                            <p>Measured from positive x-axis. Note quadrant signs to get correct CCW/CW direction!</p>
+                            <div class="formula-math">&theta; = tan&sup1;(Ay / Ax)</div>
+                            <div class="tip-box">
+                                <strong>Quadrant Sign Guide:</strong><br>
+                                • Quadrant I (+x, +y) | Quadrant II (-x, +y) <br>
+                                • Quadrant III (-x, -y) | Quadrant IV (+x, -y)
+                            </div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Unit Vector Representation</strong>
+                            <p>The unit vector <strong>u</strong> in the same direction of <strong>A</strong> is the vector itself divided by its magnitude.</p>
+                            <div class="formula-math">u = A / |A| = (Ax/|A|)i + (Ay/|A|)j + (Az/|A|)k</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Vector Dot Product (Scalar Product)</strong>
+                            <div class="formula-math">A &bull; B = |A||B|cos(&theta;) = AxBx + AyBy + AzBz</div>
+                            <p style="font-size:0.9rem; color:var(--text-muted)">
+                                • Coinciding: A &bull; B = |A||B|<br>
+                                • Perpendicular: A &bull; B = 0 (cos 90&deg; = 0)<br>
+                                • Opposite: A &bull; B = -|A||B|
+                            </p>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Vector Cross Product (Vector Product)</strong>
+                            <div class="formula-math">A &times; B = (AyBz - AzBy)i + (AzBx - AxBz)j + (AxBy - AyBx)k</div>
+                            <p style="font-size:0.9rem; color:var(--text-muted)">
+                                • Right-Hand Rule points in the direction of the resulting vector (perpendicular to both).
+                            </p>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Equilibrant</strong>
+                            <p>Equal in magnitude but directly opposite in direction to the resultant vector.</p>
+                            <div class="formula-math">Equilibrant = -Resultant</div>
+                        </div>
+                    </div>
+
+                    <!-- M3 Kinematics -->
+                    <div class="cheat-section">
+                        <h3>Module 3: Motion in 1D <span class="pill">M3</span></h3>
+                        
+                        <div class="formula-card">
+                            <strong>Distance vs Displacement & Speed vs Velocity</strong>
+                            <p>• Distance is total length of path (scalar). Displacement is &Delta;x = x_final - x_initial (vector).<br>
+                               • Average Speed = total distance / total time.<br>
+                               • Average Velocity = total displacement / elapsed time.</p>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Uniformly Accelerated Motion (UAM) Kinematics</strong>
+                            <div class="formula-math">1. v_f = v_i + a * t</div>
+                            <div class="formula-math">2. &Delta;x = v_i * t + 0.5 * a * t&sup2;</div>
+                            <div class="formula-math">3. v_f&sup2; = v_i&sup2; + 2 * a * &Delta;x</div>
+                            <div class="formula-math">4. &Delta;x = ((v_i + v_f) / 2) * t</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Position-Time Graph Analysis (x vs t)</strong>
+                            <p>• Slope equals <strong>Velocity</strong>.<br>
+                               • Flat horizontal line (slope = 0) = At rest (Velocity = 0).<br>
+                               • Positive slope = Moving forward. Negative slope = Moving backward.<br>
+                               • Curved line = Changing velocity (Acceleration).</p>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Velocity-Time Graph Analysis (v vs t)</strong>
+                            <p>• Slope equals <strong>Acceleration</strong>.<br>
+                               • Area under curve equals <strong>Displacement</strong>.<br>
+                               • Flat horizontal line = Constant velocity (Acceleration = 0).<br>
+                               • Crossing the x-axis = Changing direction.</p>
+                        </div>
+                    </div>
+
+                    <!-- M4 2D Motion & Circular -->
+                    <div class="cheat-section">
+                        <h3>Module 4: Motion in 2D & Circular Motion <span class="pill">M4</span></h3>
+                        
+                        <div class="formula-card">
+                            <strong>Projectile Motion Formulas (Angle Launch)</strong>
+                            <p>• Launch components: vx = v0*cos(&theta;) (constant), vy = v0*sin(&theta;) (subject to -g).<br>
+                               • Max Range is achieved at launch angle of <strong>45&deg;</strong>.</p>
+                            <div class="formula-math">Time to Max Height: t = (v0 * sin(&theta;)) / g</div>
+                            <div class="formula-math">Total Flight Time: t' = 2t = (2 * v0 * sin(&theta;)) / g</div>
+                            <div class="formula-math">Maximum Height (H): H = (v0&sup2; * sin&sup2;(&theta;)) / (2g)</div>
+                            <div class="formula-math">Range (R): R = (v0&sup2; * sin(2&theta;)) / g</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Uniform Circular Motion</strong>
+                            <div class="formula-math">Frequency: f = 1 / T (Hz) | Linear speed: v = 2&pi;rf = 2&pi;r / T</div>
+                            <div class="formula-math">Centripetal Acceleration: ac = v&sup2; / r</div>
+                            <div class="formula-math">Centripetal Force: Fc = m * ac = m * v&sup2; / r</div>
+                            <p style="font-size:0.9rem; color:var(--text-muted)">
+                                • Centripetal Force: directed towards the center.<br>
+                                • Centrifugal Force: inertial sensation, directed away from the center.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- M5 & M6 Newton's Laws -->
+                    <div class="cheat-section">
+                        <h3>Modules 5 & 6: Newton's Laws & Friction <span class="pill">M5 & M6</span></h3>
+                        
+                        <div class="formula-card">
+                            <strong>Newton's Second Law & Mnemonic</strong>
+                            <div class="formula-math">F = m * a | a = F / m | m = F / a</div>
+                            <div class="tip-box">
+                                <strong>Mnemonic: W.A.N.T F.ood</strong> to identify forces on FBD:<br>
+                                • <strong>W</strong>eight (Fg = mg, points down)<br>
+                                • <strong>A</strong>pplied force (Fa, direction of push/pull)<br>
+                                • <strong>N</strong>ormal force (Fn, perpendicular to contact surface)<br>
+                                • <strong>T</strong>ension force (Ft, pulls along string/rope)<br>
+                                • <strong>F</strong>riction force (Ff = &mu;Fn, opposes motion)
+                            </div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Incline Plane Forces (Angle &theta; from ground)</strong>
+                            <p>• Parallel Component (tends to slide down): Wx = mg * sin(&theta;)<br>
+                               • Perpendicular Component (presses against incline): Wy = mg * cos(&theta;)<br>
+                               • Frictionless Incline: Acceleration down plane <strong>a = g * sin(&theta;)</strong><br>
+                               • Frictionless Incline: Normal Force <strong>Fn = mg * cos(&theta;)</strong><br>
+                               • Incline with Friction: Acceleration down plane <strong>a = g * sin(&theta;) - &mu;_k * g * cos(&theta;)</strong></p>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Atwood Machine (Two Hanging Masses, m1 > m2)</strong>
+                            <div class="formula-math">a = g * (m1 - m2) / (m1 + m2)</div>
+                            <div class="formula-math">T = m1 * (g - a) = m2 * (g + a)</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Elevator Systems (Tension and Apparent Weight)</strong>
+                            <p>• Decelerating Downward or Accelerating Upward: <strong>T = m(g + a)</strong> (apparent weight increases)<br>
+                               • Decelerating Upward or Accelerating Downward: <strong>T = m(g - a)</strong> (apparent weight decreases)</p>
+                            <div class="tip-box" style="margin-bottom:0">
+                                <strong>Exam Exception Notice:</strong> On certain FEU slides, the downward deceleration tension calculation is written as <code>T = W - ma</code> yielding 6240 N instead of 9440 N. Check the interactive reviewer to memorize this specific slide detail!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- M7, M8, M9 Work, Energy, Momentum, Equilibrium -->
+                    <div class="cheat-section">
+                        <h3>Modules 7, 8, 9: Energy, Momentum & Equilibrium <span class="pill">M7-M9</span></h3>
+                        
+                        <div class="formula-card">
+                            <strong>Work & Power</strong>
+                            <div class="formula-math">W = F &bull; d = Fd * cos(&theta;) (Joules)</div>
+                            <div class="formula-math">Work-Energy Theorem: W_net = &Delta;KE = KE_final - KE_initial</div>
+                            <div class="formula-math">Kinetic Energy: KE = 0.5 * m * v&sup2;</div>
+                            <div class="formula-math">Power: P = W / t = F * v (Watts)</div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Momentum & Impulse</strong>
+                            <div class="formula-math">Momentum: p = m * v</div>
+                            <div class="formula-math">Impulse: I = F * &Delta;t = &Delta;p = m * (v_f - v_i)</div>
+                            <div class="tip-box">
+                                <strong>Collision Categories:</strong><br>
+                                • <strong>Perfecty Elastic:</strong> Momentum & KE conserved.<br>
+                                • <strong>Perfecty Inelastic:</strong> Objects stick together. Final mass is (m1+m2). Momentum conserved, KE is NOT.
+                            </div>
+                        </div>
+
+                        <div class="formula-card">
+                            <strong>Equilibrium & Torque</strong>
+                            <p>1. Translational Equilibrium: <strong>&Sigma;F = 0</strong> (&Sigma;Fx = 0, &Sigma;Fy = 0)<br>
+                               2. Rotational Equilibrium: <strong>&Sigma;&tau; = 0</strong> (&Sigma;&tau;_cw = &Sigma;&tau;_ccw)</p>
+                            <div class="formula-math">Torque: &tau; = r * F * sin(&theta;) (N&bull;m)</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tabName === 'quiz') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('quiz-tab').classList.add('active');
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('cheat-tab').classList.add('active');
+            }
+        }
+
+        // Quiz Questions Data (Matching EXACTLY the slides / notes)
+        const questionsData = [
+            // MODULE 1
+            {
+                id: 1,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "Which of the following describes a scalar quantity?",
+                options: [
+                    "A physical quantity described by both magnitude and direction.",
+                    "A physical quantity described completely by a single number with a unit.",
+                    "A quantity represented using an arrow with a head and a tail.",
+                    "A quantity that depends on the reference frame's angular acceleration."
+                ],
+                answer: 1,
+                explanation: "According to Module 1 slides: 'When a physical quantity is described by a single number, we call it a scalar quantity.' Examples include time, temperature, mass, and density."
+            },
+            {
+                id: 2,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "If two vectors have the same magnitude and the same direction, they are:",
+                options: [
+                    "Parallel vectors",
+                    "Equivalent vectors",
+                    "Equal vectors",
+                    "Anti-parallel vectors"
+                ],
+                answer: 2,
+                explanation: "Module 1 explicitly differentiates these: Same magnitude = equivalent. Same direction = parallel. Opposite direction = anti-parallel. Same magnitude AND same direction = equal."
+            },
+            {
+                id: 3,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "In which coordinate plane is the vector (2, 0, -1) located?",
+                options: [
+                    "xy plane",
+                    "xz plane",
+                    "yz plane",
+                    "Origin"
+                ],
+                answer: 1,
+                explanation: "The components are (x, y, z) = (2, 0, -1). Since the y-component is 0, the vector lies completely within the xz plane."
+            },
+            {
+                id: 4,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "Find the magnitude of the vector <3, 5, 2> = 3i + 5j + 2k.",
+                options: [
+                    "10.00",
+                    "6.16",
+                    "38.00",
+                    "6.40"
+                ],
+                answer: 1,
+                explanation: "Magnitude is the square root of the sum of the squares of components: &radic;(3&sup2; + 5&sup2; + 2&sup2;) = &radic;(9 + 25 + 4) = &radic;(38) &approx; 6.16."
+            },
+            {
+                id: 5,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "Find the angle of inclination of the vector <1.13, -3.22> measured from the positive x-axis.",
+                options: [
+                    "70.66&deg;",
+                    "-70.66&deg;",
+                    "62.75&deg;",
+                    "-62.75&deg;"
+                ],
+                answer: 1,
+                explanation: "&theta; = tan&sup1;(Ay / Ax) = tan&sup1;(-3.22 / 1.13) = -70.66&deg;. Since Ay is negative and Ax is positive, this vector is positioned in Quadrant IV, measured clockwise (-) from the x-axis."
+            },
+            {
+                id: 6,
+                module: 1,
+                category: "Module 1: Vectors",
+                question: "Find the unit vector in the same direction as the vector F = <3, -4>.",
+                options: [
+                    "<3/5, 4/5>",
+                    "<3/5, -4/5>",
+                    "<3/&radic;7, -4/&radic;7>",
+                    "<3, -4>"
+                ],
+                answer: 1,
+                explanation: "Magnitude |F| = &radic;(3&sup2; + (-4)&sup2;) = &radic;(9 + 16) = &radic;25 = 5. The unit vector u = F / |F| = <3/5, -4/5>."
+            },
+
+            // MODULE 2
+            {
+                id: 7,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "Meowth runs from the origin 5 meters to the left. James then commands him to run 17 meters to the right. Finally, Jessie tells Meowth to run 4 meters to the left. Find the vector sum of Meowth's track.",
+                options: [
+                    "26 meters to the right",
+                    "8 meters to the left",
+                    "8 meters to the right",
+                    "12 meters to the right"
+                ],
+                answer: 2,
+                explanation: "Left is negative, right is positive. Vector sum = -5 + 17 - 4 = +8 meters. Since it is positive, the direction is to the right. So the resultant is 8 meters to the right."
+            },
+            {
+                id: 8,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "What is the vector sum of two opposite vectors with equal magnitudes?",
+                options: [
+                    "A vector with twice the magnitude",
+                    "A vector pointing perpendicular",
+                    "A zero vector",
+                    "A unit vector"
+                ],
+                answer: 2,
+                explanation: "Two opposite vectors of equal magnitude sum to A + (-A) = 0, which is the zero vector."
+            },
+            {
+                id: 9,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "Find the sum (resultant) of the vectors A = 2i - 2j - 3k and B = -11i - 2j + 5k.",
+                options: [
+                    "-9i - 4j + 2k",
+                    "-9i + 2k",
+                    "-9i - 4j + 8k",
+                    "-13i - 4j + 2k"
+                ],
+                answer: 0,
+                explanation: "Add the components: R = (2 + -11)i + (-2 + -2)j + (-3 + 5)k = -9i - 4j + 2k."
+            },
+            {
+                id: 10,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "What is the equilibrant of the resultant vector R = (2, -2, -9)?",
+                options: [
+                    "(2, -2, -9)",
+                    "(-2, 2, 9)",
+                    "(-2, -2, 9)",
+                    "(2, 2, 9)"
+                ],
+                answer: 1,
+                explanation: "The equilibrant is a vector that has the same magnitude but directly opposite direction to the resultant vector. Thus, Equilibrant = -R = (-2, 2, 9)."
+            },
+            {
+                id: 11,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "Find the dot product of two vectors with magnitudes 14.7 and 11.2 forming an angle of 77&deg; in between.",
+                options: [
+                    "164.64",
+                    "37.04",
+                    "160.40",
+                    "0.00"
+                ],
+                answer: 1,
+                explanation: "Dot product formula: A &bull; B = |A||B|cos(&theta;) = (14.7)(11.2)cos(77&deg;) = 164.64 * 0.22495 = 37.04."
+            },
+            {
+                id: 12,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "What is the dot product of two vectors that are perpendicular to each other?",
+                options: [
+                    "Product of their magnitudes",
+                    "1",
+                    "0",
+                    "-1"
+                ],
+                answer: 2,
+                explanation: "Perpendicular vectors have an angle of 90&deg; between them. Since cos(90&deg;) = 0, their dot product is always 0."
+            },
+            {
+                id: 13,
+                module: 2,
+                category: "Module 2: Operations on Vectors",
+                question: "If P = 4i + 2j + k and Q = 2i + 5k, find the cross product P &times; Q.",
+                options: [
+                    "10i - 18j - 4k",
+                    "10i + 18j - 4k",
+                    "10i - 18j + 4k",
+                    "-10i - 18j - 4k"
+                ],
+                answer: 0,
+                explanation: "P = (4, 2, 1) and Q = (2, 0, 5).<br>P &times; Q = (PyQz - PzQy)i + (PzQx - PxQz)j + (PxQy - PyQx)k<br>= (2*5 - 1*0)i + (1*2 - 4*5)j + (4*0 - 2*2)k<br>= 10i + (2 - 20)j + (-4)k = 10i - 18j - 4k."
+            },
+
+            // MODULE 3
+            {
+                id: 14,
+                module: 3,
+                category: "Module 3: Motion in 1D",
+                question: "A football coach paces back and forth along the sidelines from position A (50 yd) to B (15 yd), then to C (35 yd), and finally to D (-5 yd). What is his displacement and total distance covered?",
+                options: [
+                    "Displacement = -55 yd, Distance = 95 yd",
+                    "Displacement = 55 yd, Distance = 95 yd",
+                    "Displacement = -55 yd, Distance = 55 yd",
+                    "Displacement = -5 yd, Distance = 95 yd"
+                ],
+                answer: 0,
+                explanation: "• Distance = |50-15| + |35-15| + |35-(-5)| = 35 + 20 + 40 = 95 yd.<br>• Displacement = x_final - x_initial = xD - xA = -5 - 50 = -55 yd (or 55 yd to the left)."
+            },
+            {
+                id: 15,
+                module: 3,
+                category: "Module 3: Motion in 1D",
+                question: "You start walking from a point on a circular field with a radius of 0.5 km. Two hours later, you are standing on the same point you were initially. Find your average speed and average velocity.",
+                options: [
+                    "Ave Speed = 1.57 km/hr, Ave Velocity = 1.57 km/hr",
+                    "Ave Speed = 1.57 km/hr, Ave Velocity = 0",
+                    "Ave Speed = 3.14 km/hr, Ave Velocity = 0",
+                    "Ave Speed = 0, Ave Velocity = 0"
+                ],
+                answer: 1,
+                explanation: "• Distance = circumference = 2&pi;r = 2 * &pi; * 0.5 = 3.14 km.<br>• Displacement = 0 (since final position equals initial position).<br>• Ave Speed = Distance / Time = 3.14 / 2 = 1.57 km/hr.<br>• Ave Velocity = Displacement / Time = 0 / 2 = 0."
+            },
+            {
+                id: 16,
+                module: 3,
+                category: "Module 3: Motion in 1D",
+                question: "A car travels 22 km south, 12 km west, and 14 km north in half an hour. Calculate the magnitude of the average velocity.",
+                options: [
+                    "96.00 km/hr",
+                    "48.00 km/hr",
+                    "28.84 km/hr",
+                    "14.42 km/hr"
+                ],
+                answer: 2,
+                explanation: "• Total Southward motion = 22 - 14 = 8 km South. Westward motion = 12 km West.<br>• Net Displacement = &radic;(8&sup2; + 12&sup2;) = &radic;208 &approx; 14.42 km.<br>• Ave Velocity = Displacement / Time = 14.42 km / 0.5 hr = 28.84 km/hr."
+            },
+            {
+                id: 17,
+                module: 3,
+                category: "Module 3: Motion in 1D",
+                question: "On a position vs. time graph, what physical quantity does the slope of the line represent?",
+                options: [
+                    "Acceleration",
+                    "Displacement",
+                    "Velocity",
+                    "Instantaneous Speed"
+                ],
+                answer: 2,
+                explanation: "As stated in Module 3: 'Slope is velocity.' Flat slope is zero velocity, positive slope is positive velocity, negative slope is negative velocity."
+            },
+            {
+                id: 18,
+                module: 3,
+                category: "Module 3: Motion in 1D",
+                question: "A motorcycle is traveling at 20 m/s to a full stop in 2 seconds. How far does it travel before stopping?",
+                options: [
+                    "40 meters",
+                    "20 meters",
+                    "10 meters",
+                    "30 meters"
+                ],
+                answer: 1,
+                explanation: "Using UAM formula: &Delta;x = ((vi + vf)/2) * t = ((20 + 0)/2) * 2 = 10 * 2 = 20 meters."
+            },
+
+            // MODULE 4
+            {
+                id: 19,
+                module: 4,
+                category: "Module 4: Motion in 2D & Circular Motion",
+                question: "What launching angle produces the longest possible horizontal range for a projectile?",
+                options: [
+                    "30&deg;",
+                    "45&deg;",
+                    "60&deg;",
+                    "90&deg;"
+                ],
+                answer: 1,
+                explanation: "Module 4 states: 'The longest possible range is achieved when body is projected at 45&deg; angle.'"
+            },
+            {
+                id: 20,
+                module: 4,
+                category: "Module 4: Motion in 2D & Circular Motion",
+                question: "An object is moving in a clockwise direction around a circle at constant speed. What is the direction of the velocity vector when the object is at the top of the circle (Point B)?",
+                options: [
+                    "Directed straight up (tangent)",
+                    "Directed straight down (towards center)",
+                    "Directed to the right (tangent)",
+                    "Directed to the left (tangent)"
+                ],
+                answer: 2,
+                explanation: "For clockwise circular motion, at the top of the circle (Point B), the object is moving to the right. The velocity vector is always tangent to the path in the direction of motion, which is to the right."
+            },
+            {
+                id: 21,
+                module: 4,
+                category: "Module 4: Motion in 2D & Circular Motion",
+                question: "What is the centripetal acceleration of a car following a curve of radius 100 m at a speed of 10 m/s?",
+                options: [
+                    "1 m/s&sup2;",
+                    "10 m/s&sup2;",
+                    "0.1 m/s&sup2;",
+                    "100 m/s&sup2;"
+                ],
+                answer: 0,
+                explanation: "ac = v&sup2; / r = (10)&sup2; / 100 = 100 / 100 = 1 m/s&sup2;."
+            },
+            {
+                id: 22,
+                module: 4,
+                category: "Module 4: Motion in 2D & Circular Motion",
+                question: "An object is tied to a 0.25-m string and whirled at a constant speed of 3 m/s in a vertical circle. What is its acceleration at the top of the circle?",
+                options: [
+                    "36 m/s&sup2;, upwards",
+                    "36 m/s&sup2;, downwards",
+                    "12 m/s&sup2;, downwards",
+                    "9 m/s&sup2;, upwards"
+                ],
+                answer: 1,
+                explanation: "ac = v&sup2; / r = (3)&sup2; / 0.25 = 9 / 0.25 = 36 m/s&sup2;. At the top of the vertical circle, the centripetal acceleration points towards the center of the circle, which is downwards."
+            },
+
+            // MODULE 5
+            {
+                id: 23,
+                module: 5,
+                category: "Module 5: Newton's Laws of Motion",
+                question: "What is the mnemonic recommended in the slides to identify all possible forces acting on an object when drawing a free-body diagram?",
+                options: [
+                    "F.O.R.C.E.",
+                    "W.A.N.T. F.ood",
+                    "N.E.W.T.O.N.",
+                    "M.A.S.S."
+                ],
+                answer: 1,
+                explanation: "Module 5 slide 1035: 'Identify all the possible forces acting on an object / a body MNEMONIC: W.A.N.T F.ood' standing for Weight, Applied force, Normal force, Tension force, Friction force."
+            },
+            {
+                id: 24,
+                module: 5,
+                category: "Module 5: Newton's Laws of Motion",
+                question: "A net force of 15 N is exerted on an encyclopedia to cause it to accelerate at a rate of 5 m/s&sup2;. Determine the mass of the encyclopedia.",
+                options: [
+                    "75 kg",
+                    "0.33 kg",
+                    "3 kg",
+                    "15 kg"
+                ],
+                answer: 2,
+                explanation: "m = F / a = 15 N / 5 m/s&sup2; = 3 kg."
+            },
+            {
+                id: 25,
+                module: 5,
+                category: "Module 5: Newton's Laws of Motion",
+                question: "Suppose that a sled is accelerating at 2 m/s&sup2;. If the net force is tripled and the mass is doubled, what is the new acceleration?",
+                options: [
+                    "6 m/s&sup2;",
+                    "3 m/s&sup2;",
+                    "1.33 m/s&sup2;",
+                    "4 m/s&sup2;"
+                ],
+                answer: 1,
+                explanation: "a_new = F_new / m_new = (3F) / (2m) = 1.5 * (F/m) = 1.5 * a_old = 1.5 * 2 = 3 m/s&sup2;."
+            },
+            {
+                id: 26,
+                module: 5,
+                category: "Module 5: Newton's Laws of Motion",
+                question: "A 900-N object is pushed along flat ground by a forward applied force of 100 N. Neglecting friction, calculate the acceleration of the object.",
+                options: [
+                    "9.00 m/s&sup2;",
+                    "1.09 m/s&sup2;",
+                    "0.11 m/s&sup2;",
+                    "9.80 m/s&sup2;"
+                ],
+                answer: 1,
+                explanation: "• Find mass: m = W / g = 900 / 9.8 = 91.84 kg.<br>• Find acceleration: a = F / m = 100 / 91.84 = 1.09 m/s&sup2;."
+            },
+
+            // MODULE 6
+            {
+                id: 27,
+                module: 6,
+                category: "Module 6: Applications of Newton's Laws",
+                question: "An 8 kg block of wood is placed on a platform inclined at 34&deg; with respect to the ground. Assuming the plane is frictionless, what is the object's acceleration down the incline?",
+                options: [
+                    "5.48 m/s&sup2;",
+                    "8.12 m/s&sup2;",
+                    "9.80 m/s&sup2;",
+                    "6.48 m/s&sup2;"
+                ],
+                answer: 0,
+                explanation: "On a frictionless incline, acceleration along the plane is: a = g * sin(&theta;) = 9.8 * sin(34&deg;) &approx; 5.48 m/s&sup2;."
+            },
+            {
+                id: 28,
+                module: 6,
+                category: "Module 6: Applications of Newton's Laws",
+                question: "An 8 kg block of wood is placed on a platform inclined at 34&deg; with respect to the ground. Assuming the plane is frictionless, what is the normal force acting on the block?",
+                options: [
+                    "78.4 N",
+                    "43.8 N",
+                    "65 N",
+                    "60 N"
+                ],
+                answer: 2,
+                explanation: "The normal force on an incline is: Fn = mg * cos(&theta;) = (8 kg)(9.8 m/s&sup2;)(cos 34&deg;) &approx; 65 N."
+            },
+            {
+                id: 29,
+                module: 6,
+                category: "Module 6: Applications of Newton's Laws",
+                question: "A 3246 kg object is sliding down an incline with an angle of 60&deg;. If the coefficient of kinetic friction is 0.2, what is the acceleration of the object?",
+                options: [
+                    "7.51 m/s&sup2;",
+                    "8.49 m/s&sup2;",
+                    "9.80 m/s&sup2;",
+                    "6.51 m/s&sup2;"
+                ],
+                answer: 0,
+                explanation: "Formula for acceleration down a rough incline: ax = g * sin(&theta;) - &mu;_k * g * cos(&theta;)<br>= 9.8 * sin(60&deg;) - 0.2 * 9.8 * cos(60&deg;) = 8.487 - 0.98 = 7.51 m/s&sup2;."
+            },
+            {
+                id: 30,
+                module: 6,
+                category: "Module 6: Applications of Newton's Laws",
+                question: "An elevator and its load have a total mass of 800 kg. The elevator is moving downward at 10 m/s, and is brought to rest in a distance of 25.0 m. What is the tension on the supporting cable according to the FEU lecture slide?",
+                options: [
+                    "9440 N",
+                    "6240 N",
+                    "7840 N",
+                    "1600 N"
+                ],
+                answer: 1,
+                explanation: "• Acceleration is: a = (vf&sup2; - vi&sup2;) / 2d = (0 - 10&sup2;) / (2 * -25) = 2 m/s&sup2;.<br>• Crucial Exam Note: Although standard physics dictates T = m(g+a) = 9440 N (since it is slowing down while moving downward, requiring upward net force), the FEU lecture slide explicitly computes this as: T = W - ma = 7840 - 800(2) = 6240 N. Memorize 6240 N for the exam!"
+            },
+            {
+                id: 31,
+                module: 6,
+                category: "Module 6: Applications of Newton's Laws",
+                question: "In an Atwood machine where m1 = 10 kg (heavier mass) and m2 = 5 kg (lighter mass), find the acceleration of the system.",
+                options: [
+                    "3.27 m/s&sup2;",
+                    "4.90 m/s&sup2;",
+                    "9.80 m/s&sup2;",
+                    "1.63 m/s&sup2;"
+                ],
+                answer: 0,
+                explanation: "a = g * (m1 - m2) / (m1 + m2) = 9.8 * (10 - 5) / (10 + 5) = 9.8 * 5 / 15 = 3.27 m/s&sup2;."
+            },
+
+            // MODULE 7, 8, 9
+            {
+                id: 32,
+                module: 7,
+                category: "Modules 7-9: Work, Energy & Momentum",
+                question: "Under what condition is mechanical work done on an object by a force?",
+                options: [
+                    "Whenever a force is applied to the object.",
+                    "Only when the object is displaced and there is a component of the force along the path.",
+                    "When the object is held stationary in the air.",
+                    "Only when the velocity of the object remains constant."
+                ],
+                answer: 1,
+                explanation: "Module 7 slide 1495 states: 'No work is done unless the object is displaced in some way and there is a component of the force along the path over which the object is moved.'"
+            },
+            {
+                id: 33,
+                module: 7,
+                category: "Modules 7-9: Work, Energy & Momentum",
+                question: "If the final kinetic energy of a system is 50 J and its initial kinetic energy was 30 J, what is the net work done on the system?",
+                options: [
+                    "80 J",
+                    "20 J",
+                    "-20 J",
+                    "1500 J"
+                ],
+                answer: 1,
+                explanation: "By the Work-Energy Theorem: W_net = &Delta;KE = KE_final - KE_initial = 50 J - 30 J = 20 J."
+            },
+            {
+                id: 34,
+                module: 7,
+                category: "Modules 7-9: Work, Energy & Momentum",
+                question: "A 10-gram ball falls freely from a height, hits the floor at 15 m/s, and is reflected upward at 10 m/s. What is the magnitude of the impulse exerted by the floor on the ball?",
+                options: [
+                    "0.05 kg m/s",
+                    "0.25 kg m/s",
+                    "2.50 kg m/s",
+                    "0.15 kg m/s"
+                ],
+                answer: 1,
+                explanation: "• Convert mass to kg: m = 10 g = 0.01 kg.<br>• Initial velocity (downward): vo = -15 m/s. Final velocity (upward): vt = 10 m/s.<br>• Impulse I = &Delta;p = m(vt - vo) = 0.01 * (10 - (-15)) = 0.01 * 25 = 0.25 kg m/s."
+            },
+            {
+                id: 35,
+                module: 7,
+                category: "Modules 7-9: Work, Energy & Momentum",
+                question: "A force of 120 N is applied perpendicular to a wrench of length 20 cm. Calculate the torque exerted.",
+                options: [
+                    "2400 N m",
+                    "24 N m",
+                    "6 N m",
+                    "12 N m"
+                ],
+                answer: 1,
+                explanation: "Torque = Force * lever arm = 120 N * 0.20 m = 24 N m."
+            }
+        ];
+
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let selectedOption = null;
+        let score = 0;
+        let incorrectQuestions = [];
+
+        function startExam(mode) {
+            document.getElementById('setup-section').style.display = 'none';
+            if (mode === 'full') {
+                currentQuestions = [...questionsData].sort(() => 0.5 - Math.random());
+                currentIndex = 0;
+                score = 0;
+                incorrectQuestions = [];
+                showQuestion();
+            } else {
+                document.getElementById('module-selector-box').style.display = 'block';
+            }
+        }
+
+        function startModuleExam(moduleNum) {
+            document.getElementById('setup-section').style.display = 'none';
+            currentQuestions = questionsData.filter(q => q.module === moduleNum).sort(() => 0.5 - Math.random());
+            currentIndex = 0;
+            score = 0;
+            incorrectQuestions = [];
+            showQuestion();
+        }
+
+        function showQuestion() {
+            document.getElementById('quiz-section').style.display = 'block';
+            document.getElementById('results-section').style.display = 'none';
+            document.getElementById('feedback-container').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'inline-flex';
+            document.getElementById('submit-btn').disabled = true;
+            
+            selectedOption = null;
+            
+            const q = currentQuestions[currentIndex];
+            document.getElementById('question-category').innerText = q.category;
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+            
+            const pct = ((currentIndex) / currentQuestions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${pct}%`;
+            
+            document.getElementById('question-text').innerText = q.question;
+            
+            const optionsDiv = document.getElementById('options-container');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const optCard = document.createElement('div');
+                optCard.className = 'option-card';
+                optCard.innerHTML = `
+                    <div class="option-letter">${letter}</div>
+                    <div class="option-text">${opt}</div>
+                `;
+                optCard.onclick = () => selectOption(idx, optCard);
+                optionsDiv.appendChild(optCard);
+            });
+        }
+
+        function selectOption(idx, card) {
+            if (document.getElementById('next-btn').style.display === 'inline-flex') return; // already submitted
+            
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedOption = idx;
+            document.getElementById('submit-btn').disabled = false;
+        }
+
+        function submitAnswer() {
+            if (selectedOption === null) return;
+            
+            const q = currentQuestions[currentIndex];
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            // Disable option clicking
+            optionCards.forEach(c => c.style.pointerEvents = 'none');
+            
+            const feedbackBox = document.getElementById('feedback-container');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            if (selectedOption === q.answer) {
+                optionCards[selectedOption].classList.add('correct');
+                feedbackBox.className = 'feedback-box correct-fb';
+                feedbackTitle.innerHTML = '&#10004; Correct!';
+                score++;
+            } else {
+                optionCards[selectedOption].classList.add('incorrect');
+                optionCards[q.answer].classList.add('correct');
+                feedbackBox.className = 'feedback-box incorrect-fb';
+                feedbackTitle.innerHTML = '&#10008; Incorrect';
+                incorrectQuestions.push(q);
+            }
+            
+            feedbackText.innerHTML = q.explanation;
+            feedbackBox.style.display = 'block';
+            
+            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'inline-flex';
+            
+            // Scroll to explanation
+            feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+            
+            const pct = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('score-text').innerText = `${pct}%`;
+            
+            let greeting = 'Keep Studying!';
+            if (pct >= 90) greeting = 'Ace Level! You are ready!';
+            else if (pct >= 75) greeting = 'Great job! Almost there!';
+            else if (pct >= 50) greeting = 'Good effort, but review more!';
+            
+            document.getElementById('score-greeting').innerText = greeting;
+            document.getElementById('score-summary').innerText = `You scored ${score} out of ${currentQuestions.length} questions.`;
+            
+            const retryBtn = document.getElementById('retry-incorrect-btn');
+            if (incorrectQuestions.length > 0) {
+                retryBtn.style.display = 'inline-flex';
+                retryBtn.innerText = `Retry Incorrect (${incorrectQuestions.length})`;
+            } else {
+                retryBtn.style.display = 'none';
+            }
+        }
+
+        function retryIncorrect() {
+            currentQuestions = [...incorrectQuestions];
+            currentIndex = 0;
+            score = 0;
+            incorrectQuestions = [];
+            showQuestion();
+        }
+
+        function resetQuiz() {
+            document.getElementById('results-section').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('setup-section').style.display = 'block';
+            document.getElementById('module-selector-box').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

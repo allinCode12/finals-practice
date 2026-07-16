@@ -1,0 +1,59 @@
+<?php
+include_once("config.php");
+
+$result = mysqli_query($conn, "SELECT * FROM users ORDER BY id DESC");
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Homepage</title>
+</head>
+
+<body>
+
+<div>
+
+    <h2>User Management System</h2>
+
+    <div>
+        <a href="add.html">Add New User</a>
+        <a href="search.php">Search</a>
+    </div>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+
+        <?php
+
+        while($res = mysqli_fetch_array($result))
+        {
+            echo "<tr>";
+            echo "<td>".$res['id']."</td>";
+            echo "<td>".$res['name']."</td>";
+            echo "<td>".$res['age']."</td>";
+            echo "<td>".$res['email']."</td>";
+            // FIXED: Added missing cells for the Action column
+            echo "<td>";
+            echo "<a href='edit.php?id=".$res['id']."'>Edit</a> | ";
+            echo "<a href='delete.php?id=".$res['id']."'>Delete</a>";
+            echo "</td>";
+            echo "</tr>";
+        }
+        ?>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
